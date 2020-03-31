@@ -47,7 +47,8 @@ terraform apply \
   -var "ssh_public_key_file=$DB_VPS_SSH_PRIVATE_KEY.pub" \
   -var "do_token=$DOTOKEN" \
   -var "do_spaces_key=$DO_SPACES_KEY" \
-  -var "do_spaces_key_secret=$DO_SPACES_KEY_SECRET"
+  -var "do_spaces_key_secret=$DO_SPACES_KEY_SECRET" \
+  terraform/
 
 # Ge the IP of the PostgreSQL VPS
 DB_VPS_IP=$(terraform output db_vps_ip)
@@ -64,7 +65,7 @@ DB_VPS_IP=$(terraform output db_vps_ip)
 # Provision the PostgreSQL VPS
 POSTGRES_USER_PASSWORD=$(openssl rand -base64 32)
 
-ansible-playbook provision.yml \
+ansible-playbook ansible/provision.yml \
   --ssh-common-args="-o ProxyCommand=\"ssh -W %h:%p -q root@$WEB_APP_VPS_IP\"" \
   --ssh-common-args='-o UserKnownHostsFile=/dev/null -o "StrictHostKeyChecking=no"' \
   --user=root \
@@ -80,7 +81,7 @@ ansible-playbook provision.yml \
   --extra-vars="postgres_backups_repo_key_secret=${PGBACK_DO_SPACES_KEY_SECRET}" \
   --inventory="${DB_VPS_IP},"  # Without the comma, Ansible takes this as a file path
 
-ansible-playbook provision.yml \
+ansible-playbook ansible/provision.yml \
   --ssh-common-args="-o ProxyCommand=\"ssh -W %h:%p -q root@134.122.85.215\"" \
   --ssh-common-args="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
   --user=root \
