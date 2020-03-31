@@ -75,8 +75,9 @@ ansible-playbook provision.yml \
   --extra-vars="postgres_backups_repo_bucket_name=$(terraform output db_backups_bucket_name)" \
   --extra-vars="postgres_backups_repo_region=$(terraform output db_backups_bucket_region)" \
   --extra-vars="postgres_backups_repo_endpoint=digitaloceanspaces.com" \
-  --extra-vars="postgres_backups_repo_key=${DO_SPACES_KEY}" \
-  --extra-vars="postgres_backups_repo_key_secret=${DO_SPACES_KEY_SECRET}" \
+  --extra-vars="postgres_backups_repo_cipher_pass=$(openssl rand -base64 48)" \
+  --extra-vars="postgres_backups_repo_key=${PGBACK_DO_SPACES_KEY}" \
+  --extra-vars="postgres_backups_repo_key_secret=${PGBACK_DO_SPACES_KEY_SECRET}" \
   --inventory="${DB_VPS_IP},"  # Without the comma, Ansible takes this as a file path
 
 ansible-playbook provision.yml \

@@ -22,12 +22,8 @@
         postgres_enable_backups: true
         postgres_install_ppa: true
         postgres_user: "{{ user }}"
-        postgres_user_password: BzaQIffowmQKiEM2Ug0ggDHmQq3jEwia/iqTIlyT/js=
         postgres_version: 11
         postgres_whitelist_ip: "{{ web_app_ip }}"
-        postgres_backups_repo_cipher_pass: zWaf6XtpjIVZC5444yXB+cgFDFl7MxGlgkZSaoPvTGirhPygu4jOKOXf9LO4vjfO
-        postgres_backups_repo_key: OHZWVX2YI24KJRZ5C77O
-        postgres_backups_repo_key_secret: 91FkoH3wvMujDw+eOTtpdPbuyb5LjRsNbXcIm77M1p0
         postgres_backups_repo_region: fra1
         postgres_backups_repo_endpoint: fra1.digitaloceanspaces.com
         postgres_backups_repo_bucket_name: test-pgbackrest
