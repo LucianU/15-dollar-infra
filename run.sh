@@ -14,6 +14,7 @@ fi
 
 WEB_APP_NAME="$1"
 DB_VPS_SSH_PRIVATE_KEY="$HOME/.ssh/$WEB_APP_NAME"_rsa
+TERRAFORM_SETUP_DIR="terraform"
 
 # Create the web app VPS. We need its IP to whitelist it with PostgreSQL
 docker-machine create --driver digitalocean \
@@ -36,7 +37,7 @@ WEB_APP_VPS_IP=$(docker-machine ip "$WEB_APP_NAME")
 ssh-add "$DB_VPS_SSH_PRIVATE_KEY"
 
 # Initialize Terraform, if necessary
-[ ! -f "$PWD/terraform.tfstate" ] && terraform init
+[ ! -f "$PWD/$TERRAFORM_SETUP_DIR/terraform.tfstate" ] && terraform init terraform/
 
 # This is needed because Terraform won't find the state file, if it was just created
 sleep 5
@@ -51,7 +52,7 @@ terraform apply \
   terraform/
 
 # Ge the IP of the PostgreSQL VPS
-DB_VPS_IP=$(terraform output db_vps_ip)
+DB_VPS_IP=$(terraform output -state="$TERRAFORM_SETUP_DIR"/terraform.tfstate db_vps_ip)
 
 # TO DO
 # Figure out how to connect to the PostgreSQL VPS, since it's on a private network
@@ -74,8 +75,8 @@ ansible-playbook ansible/provision.yml \
   --extra-vars="web_app_ip=${WEB_APP_VPS_IP}" \
   --extra-vars="postgres_user_password=md5$(echo -n "$POSTGRES_USER_PASSWORD$WEB_APP_NAME" | md5sum | awk '{print $1}')" \
   --extra-vars="postgres_cluster_name=${WEB_APP_NAME}" \
-  --extra-vars="postgres_backups_repo_bucket_name=$(terraform output db_backups_bucket_name)" \
-  --extra-vars="postgres_backups_repo_region=$(terraform output db_backups_bucket_region)" \
+  --extra-vars="postgres_backups_repo_bucket_name=$(terraform output -state=$TERRAFORM_SETUP_DIR/terraform.tfstate db_backups_bucket_name)" \
+  --extra-vars="postgres_backups_repo_region=$(terraform output -state=$TERRAFORM_SETUP_DIR/terraform.tfstate db_backups_bucket_region)" \
   --extra-vars="postgres_backups_repo_endpoint=digitaloceanspaces.com" \
   --extra-vars="postgres_backups_repo_cipher_pass=$(openssl rand -base64 48)" \
   --extra-vars="postgres_backups_repo_key=${PGBACK_DO_SPACES_KEY}" \
