@@ -55,6 +55,8 @@ Vagrant.configure("2") do |config|
   #
   #   # Customize the amount of memory on the VM:
     vb.memory = "512"
+    # This prevents vagrant from creating an "ubuntu-[version-name]-[version-number]-cloudimg-console.log" file
+    vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   end
   #
   # View the documentation for the provider you are using for more
