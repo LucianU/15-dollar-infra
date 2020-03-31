@@ -70,7 +70,8 @@ ansible-playbook ansible/provision.yml \
   --ssh-common-args='-o UserKnownHostsFile=/dev/null -o "StrictHostKeyChecking=no"' \
   --user=root \
   --private-key="${DB_VPS_SSH_PRIVATE_KEY}" \
-  --extra-vars="web_app_user=${WEB_APP_NAME} web_app_ip=${WEB_APP_VPS_IP}" \
+  --extra-vars="web_app_user=${WEB_APP_NAME}" \
+  --extra-vars="web_app_ip=${WEB_APP_VPS_IP}" \
   --extra-vars="postgres_user_password=md5$(echo -n "$POSTGRES_USER_PASSWORD$WEB_APP_NAME" | md5sum | awk '{print $1}')" \
   --extra-vars="postgres_cluster_name=${WEB_APP_NAME}" \
   --extra-vars="postgres_backups_repo_bucket_name=$(terraform output db_backups_bucket_name)" \
@@ -86,7 +87,8 @@ ansible-playbook ansible/provision.yml \
   --ssh-common-args="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
   --user=root \
   --private-key="~/.ssh/move_rsa" \
-  --extra-vars="web_app_user=move web_app_ip=142.93.167.153" \
+  --extra-vars="web_app_user=move" \
+  --extra-vars="web_app_ip=142.93.167.153" \
   --extra-vars="postgres_cluster_name=move" \
   --extra-vars="postgres_backups_repo_bucket_name=move-db-backups" \
   --extra-vars="postgres_backups_repo_region=fra1" \
