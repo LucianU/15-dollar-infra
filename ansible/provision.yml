@@ -3,8 +3,7 @@
   hosts: all
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    user: lucian #"{{ web_app_user }}"
-    web_app_ip: 127.0.0.1
+    user: "{{ web_app_user }}"
   pre_tasks:
     - name: install python-ipaddress
       apt:
@@ -24,6 +23,3 @@
         postgres_user: "{{ user }}"
         postgres_version: 11
         postgres_whitelist_ip: "{{ web_app_ip }}"
-        postgres_backups_repo_region: fra1
-        postgres_backups_repo_endpoint: fra1.digitaloceanspaces.com
-        postgres_backups_repo_bucket_name: test-pgbackrest
