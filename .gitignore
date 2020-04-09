@@ -2,3 +2,6 @@
 .terraform
 *tfstate*
 
+# Shhh
+.secrets
+
