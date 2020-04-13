@@ -15,11 +15,10 @@ Vagrant.configure("2") do |config|
     vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   end
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "ansible/provision.yml"
+    ansible.playbook = "ansible/provision_db_vps.yml"
     ansible.compatibility_mode = "2.0"
     ansible.extra_vars = {
-      web_app_ip: "127.0.0.1",
-      web_app_user: "lucian",
+      login_user: "lucian",
       postgres_user_password: ENV['POSTGRES_USER_PASSWORD'],
       postgres_backups_repo_cipher_pass: ENV['POSTGRES_BACKUPS_REPO_CIPHER_PASS'],
       postgres_backups_repo_key: ENV['PGBACK_DO_SPACES_KEY'],
@@ -27,6 +26,7 @@ Vagrant.configure("2") do |config|
       postgres_backups_repo_region: "fra1",
       postgres_backups_repo_endpoint: "fra1.digitaloceanspaces.com",
       postgres_backups_repo_bucket_name: "test-pgbackrest",
+      postgres_whitelist_ip: "127.0.0.1"
     }
   end
 end

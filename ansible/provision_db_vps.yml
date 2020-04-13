@@ -3,7 +3,6 @@
   hosts: all
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    user: "{{ web_app_user }}"
   pre_tasks:
     - name: install python-ipaddress
       apt:
@@ -14,12 +13,11 @@
   roles:
     - role: ansible-secure
       vars:
-        secure_deployment_user: "{{ user }}"
+        secure_deployment_user: "{{ login_user }}"
     - role: ansible-postgres
       vars:
         postgres_cluster_name: main
         postgres_enable_backups: true
         postgres_install_ppa: true
-        postgres_user: "{{ user }}"
+        postgres_user: "{{ login_user }}"
         postgres_version: 11
-        postgres_whitelist_ip: "{{ web_app_ip }}"

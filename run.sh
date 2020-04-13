@@ -14,6 +14,16 @@ fi
 
 export WEB_APP_NAME="$1"
 
+# Make the initial setup, if necessary
+# Install Ansible roles
+export ANSIBLE_ROLES_PATH="$PWD/ansible/roles"
+
+[ ! -d "$ANSIBLE_ROLES_PATH/ansible-postgres" ] && \
+  ansible-galaxy install -r "$ANSIBLE_ROLES_PATH/requirements.yml"
+
+# Initialize Terraform
+[ ! -f "$PWD/$TERRAFORM_SETUP_DIR/terraform.tfstate" ] && terraform init terraform/
+
 ./setup_web_vps.sh
 
 ./setup_db_vps.sh
