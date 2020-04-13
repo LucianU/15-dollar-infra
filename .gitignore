@@ -5,3 +5,7 @@
 # Shhh
 .secrets
 
+# Ansible roles
+ansible/roles/*
+!ansible/roles/requirements.yml
+
