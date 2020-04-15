@@ -17,3 +17,12 @@ If you have Nix installed, simply run `nix-shell` inside this directory. It will
 * [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 * [Install docker-machine](https://docs.docker.com/machine/install-machine/)
 * [Install Terraform](https://www.terraform.io/downloads.html)
+* Set the following environment variables:
+  * `DOTOKEN`: DigitalOcean API Token
+  * `DO_SPACES_KEY`: DigitalOcean Spaces API Key
+  * `DO_SPACES_KEY_SECRET`: DigitalOcean Spaces API Key Secret
+  * `POSTGRES_USER_PASSWORD`: You can generate it with `openssl rand -base64 32`
+  * `POSTGRES_BACKUPS_REPO_CIPHER_PASS`: The password for the backups repo. You can use the same method as above to generate it.
+* Use the `run.sh` script:
+
+  `./run.sh [app-name]`
