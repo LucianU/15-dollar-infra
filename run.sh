@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-[ -z "$DOTOKEN" ] && echo "You need to set the env variable DOTOKEN with your DigitalOcean API Token"
-[ -z "$DO_SPACES_KEY" ] && echo "You need to set the env variable DO_SPACES_KEY with your DigitalOcean Spaces Key"
-[ -z "$DO_SPACES_KEY_SECRET" ] && echo "You need to set the env variable DO_SPACES_KEY_SECRET with your DigitalOcean Spaces Key Secret"
+[ -z "$DOTOKEN" ] && echo "You need to set the env variable DOTOKEN with your DigitalOcean API Token" && exit 1
+[ -z "$DO_SPACES_KEY" ] && echo "You need to set the env variable DO_SPACES_KEY with your DigitalOcean Spaces Key" && exit 1
+[ -z "$DO_SPACES_KEY_SECRET" ] && echo "You need to set the env variable DO_SPACES_KEY_SECRET with your DigitalOcean Spaces Key Secret" && exit 1
 
 if [ -z "$1" ]
 then
