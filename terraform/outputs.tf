@@ -1,5 +1,5 @@
 output "db_vps_ip" {
-  value = digitalocean_droplet.db-vps.ipv4_address_private
+  value = digitalocean_droplet.db-vps.ipv4_address
 }
 
 output "db_backups_bucket_name" {
