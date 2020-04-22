@@ -17,6 +17,8 @@ If you have Nix installed, simply run `nix-shell` inside this directory. It will
 * [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 * [Install docker-machine](https://docs.docker.com/machine/install-machine/)
 * [Install Terraform](https://www.terraform.io/downloads.html)
+
+## Both Cases
 * Set the following environment variables:
   * `DOTOKEN`: DigitalOcean API Token
   * `DO_SPACES_KEY`: DigitalOcean Spaces API Key
