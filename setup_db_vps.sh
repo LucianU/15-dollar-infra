@@ -20,7 +20,7 @@ terraform apply -auto-approve \
   -var "do_token=$DOTOKEN" \
   -var "do_spaces_key=$DO_SPACES_KEY" \
   -var "do_spaces_key_secret=$DO_SPACES_KEY_SECRET" \
-  terraform/
+  "$TERRAFORM_SETUP_DIR"
 
 # Ge the IP and the region of the VPS
 DB_VPS_IP=$(terraform output -state="$TERRAFORM_SETUP_DIR"/terraform.tfstate db_vps_ip)
