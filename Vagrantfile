@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
       postgres_backups_repo_region: "fra1",
       postgres_backups_repo_endpoint: "fra1.digitaloceanspaces.com",
       postgres_backups_repo_bucket_name: "test-pgbackrest",
-      postgres_whitelist_ip: "127.0.0.1"
+      postgres_whitelist_ip: ENV['WEB_APP_VPS_IP']
     }
   end
 end
